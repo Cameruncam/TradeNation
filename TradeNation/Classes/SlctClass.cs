@@ -10,6 +10,5 @@ namespace TradeNation.Classes
     internal class SlctClass
     {
         static public string slctProduct;
-        static public DataTable BasketTable = new DataTable();
     }
 }

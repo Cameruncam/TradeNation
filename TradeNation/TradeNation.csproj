@@ -94,6 +94,9 @@
     <EmbeddedResource Include="Forms\Product_list\AddProduct.resx">
       <DependentUpon>AddProduct.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Product_list\Basket.resx">
+      <DependentUpon>Basket.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Product_list\ChangeProduct.resx">
       <DependentUpon>ChangeProduct.cs</DependentUpon>
     </EmbeddedResource>

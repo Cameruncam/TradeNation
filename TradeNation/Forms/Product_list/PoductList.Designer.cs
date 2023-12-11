@@ -403,7 +403,7 @@
             this.buttonOrder.TabIndex = 8;
             this.buttonOrder.Text = "Перейти к заказу";
             this.buttonOrder.UseVisualStyleBackColor = false;
-            this.buttonOrder.Click += new System.EventHandler(this.buttonExit_Click);
+            this.buttonOrder.Click += new System.EventHandler(this.buttonOrder_Click);
             // 
             // buttonExit
             // 

@@ -14,7 +14,9 @@ namespace TradeNation.Client
         SqlConnection sqlConnect = new SqlConnection(connect);
         int RowsCount1;
         decimal price;
+        static public DataTable BasketTable = new DataTable();
         decimal discount;
+        int Ee;
         public PoductList()
         {
             InitializeComponent();
@@ -34,6 +36,7 @@ namespace TradeNation.Client
             RowsCount1 = PoductListView.RowCount;
             Countlbl.Text = Convert.ToString(PoductListView.RowCount) + "/" + RowsCount1;
             PoductListView.Columns[11].Visible = false;
+            buttonOrder.Visible = false;
             if (UsrClass.UsrRole == 2)
             {
                 buttonAdd.Visible = false;
@@ -50,6 +53,14 @@ namespace TradeNation.Client
             else
             {
             }
+            BasketTable.Columns.Add("Артикль");
+            BasketTable.Columns.Add("Название");
+            BasketTable.Columns.Add("Цена");
+            BasketTable.Columns.Add("Производитель");
+            BasketTable.Columns.Add("Скидка");
+            BasketTable.Columns.Add("Описание");
+            BasketTable.Columns.Add("Фото");
+            BasketTable.Columns.Add("Количество");
         }
 
         private void Import()
@@ -71,10 +82,16 @@ namespace TradeNation.Client
             {
                 contextMenuStrip1.Show(Cursor.Position);
             }
+
         }
 
         private void PoductList_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
+            if (BasketTable.Rows.Count != 0)
+            {
+                buttonOrder.Visible = true;
+            }
+            Ee = e.RowIndex;
             //Звпоминание артикля
             if (PoductListView.Rows[e.RowIndex].Cells[0].Value != DBNull.Value)
             {
@@ -99,16 +116,16 @@ namespace TradeNation.Client
                 price = Convert.ToDecimal(PoductListView.Rows[e.RowIndex].Cells[3].Value);
                 discount = Convert.ToDecimal(PoductListView.Rows[e.RowIndex].Cells[8].Value);
                 price = price - (price * (discount/100));
-                Costlbl.Text = "Цена: " + Convert.ToString(Math.Round(Convert.ToDecimal(PoductListView.Rows[e.RowIndex].Cells[3].Value), 2)) + " Итог: " + Convert.ToString(Math.Round(price, 2));
+                label1.Text = "Цена: " + Convert.ToString(Math.Round(Convert.ToDecimal(PoductListView.Rows[e.RowIndex].Cells[3].Value), 2)) + " Итог: " + Convert.ToString(Math.Round(price, 2));
             }
             else
             {
-                Costlbl.Text = "Цена: " + Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[3].Value);
+                label1.Text = "Цена: " + Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[3].Value);
             }
-            Namelbl.Text ="Название: " + Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[1].Value);
-            Desclbl.Text ="Описание: " + Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[10].Value);
-            Mnfctlbl.Text ="Производитель: " + Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[5].Value);
-            Disclbl.Text =Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[8].Value) + "%";
+            label4.Text ="Название: " + Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[1].Value);
+            label3.Text ="Описание: " + Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[10].Value);
+            label2.Text ="Производитель: " + Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[5].Value);
+            label5.Text =Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[8].Value) + "%";
         }
 
         private void textSearch_TextChanged(object sender, EventArgs e)
@@ -188,8 +205,13 @@ namespace TradeNation.Client
 
         private void добавитьКЗаказуToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SlctClass.BasketTable.Rows.Add();
-              
-         }
+            BasketTable.Rows.Add(new object[] { SlctClass.slctProduct, PoductListView.Rows[Ee].Cells[1].Value, PoductListView.Rows[Ee].Cells[3].Value, PoductListView.Rows[Ee].Cells[5].Value, PoductListView.Rows[Ee].Cells[8].Value, PoductListView.Rows[Ee].Cells[10].Value, PoductListView.Rows[Ee].Cells[11].Value, 1 });
+        }
+
+        private void buttonOrder_Click(object sender, EventArgs e)
+        {
+            Basket bask = new Basket();
+            bask.ShowDialog();
+        }
     }
 }
