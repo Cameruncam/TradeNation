@@ -75,7 +75,7 @@ namespace TradeNation.Client
 
         private void PoductList_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            //
+            //Звпоминание артикля
             if (PoductListView.Rows[e.RowIndex].Cells[0].Value != DBNull.Value)
             {
                 SlctClass.slctProduct = Convert.ToString(PoductListView.Rows[e.RowIndex].Cells[0].Value);
@@ -138,7 +138,7 @@ namespace TradeNation.Client
                 (PoductListView.DataSource as DataTable).DefaultView.RowFilter = $"[Скидка] >= 10 and[Скидка] <= 15 and [Название] LIKE '%{textFilter.Text}%'";
             }
             else { (PoductListView.DataSource as DataTable).DefaultView.RowFilter = $"[Скидка] >= 15 and [Название] LIKE '%{textFilter.Text}%'"; }
-            Countlbl.Text = Convert.ToString(PoductListView.RowCount)  + "/" + RowsCount1;
+            Countlbl.Text = Convert.ToString(PoductListView.RowCount) + "/" + RowsCount1;
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
@@ -185,5 +185,11 @@ namespace TradeNation.Client
             Import();
             FilterSearch();
         }
+
+        private void добавитьКЗаказуToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SlctClass.BasketTable.Rows.Add();
+              
+         }
     }
 }

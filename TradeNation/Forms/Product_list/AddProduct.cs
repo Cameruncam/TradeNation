@@ -26,7 +26,7 @@ namespace TradeNation.Forms.Product_list
         {
             //проверка артикля в базе данных
             sqlConnect.Open();
-            SqlCommand comand = new SqlCommand($"Select * from Product Where ProductArticleNumber = '{TBArticle}'");
+            SqlCommand comand = new SqlCommand($"Select * from Product Where ProductArticleNumber = '{TBArticle.Text}'");
             comand.Connection = sqlConnect;
             SqlDataReader sqlReader = comand.ExecuteReader();
             sqlReader.Read();

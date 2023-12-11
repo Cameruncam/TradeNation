@@ -121,6 +121,7 @@ namespace TradeNation
 
         private void LoginForm_Activated(object sender, EventArgs e)
         {
+            //проверка капчи
             if(CapchaClass.cap == 0)
             { 
             }
@@ -135,6 +136,7 @@ namespace TradeNation
             }
         }
 
+        //блокировка на 10 секунд
         private void timer1_Tick(object sender, EventArgs e)
         {
             textBox1.Enabled = true;
@@ -146,6 +148,7 @@ namespace TradeNation
             timer2.Enabled = false;
         }
 
+        //показ оставшегося времени блокировки
         private void timer2_Tick(object sender, EventArgs e)
         {
             sec -= 1;
